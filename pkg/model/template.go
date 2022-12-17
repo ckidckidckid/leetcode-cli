@@ -30,13 +30,15 @@ func GetFileTemplate(pd ProblemDetail) (*FileTemplate, error) {
 		return &t, err
 	}
 
+	numLen := len(pd.QuestionFrontendID)
+	zeroPad := strings.Repeat("0", 4-numLen)
 	if t.MarkdownPath != "" {
-		t.MarkdownPath = strings.ReplaceAll(t.MarkdownPath, "$questionID", pd.QuestionFrontendID)
+		t.MarkdownPath = strings.ReplaceAll(t.MarkdownPath, "$questionID", zeroPad+pd.QuestionFrontendID)
 		t.MarkdownPath = strings.ReplaceAll(t.MarkdownPath, "$questionSlug", pd.TitleSlug)
 	}
 
 	if t.SourceCodePath != "" {
-		t.SourceCodePath = strings.ReplaceAll(t.SourceCodePath, "$questionID", pd.QuestionFrontendID)
+		t.SourceCodePath = strings.ReplaceAll(t.SourceCodePath, "$questionID", zeroPad+pd.QuestionFrontendID)
 		t.SourceCodePath = strings.ReplaceAll(t.SourceCodePath, "$questionSlug", pd.TitleSlug)
 		t.SourceCodePath = strings.ReplaceAll(t.SourceCodePath, "$submissionID", "1")
 	}
