@@ -1,4 +1,4 @@
-EXECUTABLE= "leetcode"
+EXECUTABLE= leetcode_cli
 VERSION=$(shell git describe --tags --always --long --dirty)
 WINDOWS=$(EXECUTABLE)_windows_amd64_$(VERSION).exe
 LINUX=$(EXECUTABLE)_linux_amd64_$(VERSION)
