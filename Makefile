@@ -1,4 +1,4 @@
-EXECUTABLE=~leetcode_cli
+EXECUTABLE=leetcode_cli
 VERSION=$(shell git describe --tags --always --long --dirty)
 WINDOWS=$(EXECUTABLE)_windows_amd64_$(VERSION).exe
 LINUX=$(EXECUTABLE)_linux_amd64_$(VERSION)
@@ -31,3 +31,6 @@ $(DARWIN):
 
 clean:
 	rm -f $(WINDOWS) $(LINUX) $(DARWIN)
+
+buildlocal:
+	go build -o bin/leetcode-cli main.go
