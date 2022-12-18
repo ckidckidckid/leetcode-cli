@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/ckidckidckid/leetcode-cli/pkg/utils"
@@ -199,9 +200,11 @@ func (pd ProblemDetail) generateMarkdown(t *FileTemplate, sourceCodePath string)
 	}
 	pd.SampleTestCase = strings.ReplaceAll(pd.SampleTestCase, "\n", "\\n")
 
-	f, err := os.Create(
-		fmt.Sprintf(t.MarkdownPath),
-	)
+	err = os.MkdirAll(filepath.Dir(t.MarkdownPath), os.ModePerm)
+	if err != nil {
+		return fmt.Errorf(err.Error())
+	}
+	f, err := os.Create(fmt.Sprintf(t.MarkdownPath))
 	if err != nil {
 		return fmt.Errorf(err.Error())
 	}
@@ -234,6 +237,10 @@ func (pd ProblemDetail) generateSourceCode(t *FileTemplate, language string) (st
 				codeSnippet.GetLanguageExt(),
 			)
 
+			err := os.MkdirAll(filepath.Dir(t.SourceCodePath), os.ModePerm)
+			if err != nil {
+				return "", fmt.Errorf(err.Error())
+			}
 			f, err := os.Create(t.SourceCodePath)
 			if err != nil {
 				return "", fmt.Errorf(err.Error())
