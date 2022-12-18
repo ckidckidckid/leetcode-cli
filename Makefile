@@ -33,4 +33,4 @@ clean:
 	rm -f $(WINDOWS) $(LINUX) $(DARWIN)
 
 buildlocal:
-	go build -o bin/leetcode-cli main.go
+	go build -o bin/$(EXECUTABLE) main.go
